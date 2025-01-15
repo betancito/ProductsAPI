@@ -1,15 +1,6 @@
-import os
-from dotenv import load_dotenv
-from flask import Flask, render_template, jsonify, Response, request
+from api import app,mongo
+from flask import jsonify, request, Response, render_template
 from bson import ObjectId, json_util
-from flask_pymongo import PyMongo
-
-load_dotenv()
-app = Flask(__name__)
-app.config["MONGO_URI"] = os.getenv("CONNECTION_STRING")
-
-
-mongo = PyMongo(app) 
 
 @app.route("/")
 def index():
@@ -69,7 +60,3 @@ def update_product(id):
     return jsonify({
         "message" : "Product updated successfully"
     }), 200
-    
-    
-if __name__ == "__main__":
-    app.run(debug=True)
